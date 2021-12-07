@@ -1,8 +1,5 @@
 package com.iftm.ratingsdataservice.resources;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,20 +11,16 @@ import com.iftm.ratingsdataservice.models.UserRating;
 @RequestMapping("/ratingsdata")
 public class RatingsResource {
 
-	@RequestMapping("/{movieId}")
+	@RequestMapping("/movies/{movieId}")
 	public Rating getMovieInfo(@PathVariable("movieId") String movieId) {
 		return new Rating(movieId, 9);
 	}
 	
     @RequestMapping("users/{userId}")
-    public List<Rating> getUserRating(@PathVariable("userId") String userId) {
-    	List<Rating> ratings = Arrays.asList(
-				new Rating("1234",18),
-				new Rating("1541",28)
-			);
-    	UserRating userRating = new UserRating();
-    	userRating.setUserRating(ratings);
-    	return ratings;
+    public UserRating getUserRating(@PathVariable("userId") String userId) {
+        UserRating userRating = new UserRating();
+        userRating.initData(userId);
+    	return userRating;
     }
 }
 
